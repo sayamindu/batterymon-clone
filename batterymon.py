@@ -22,7 +22,7 @@
 import gtk
 import gobject
 import sys, os
-
+VERSION="0.4.0"
 
 #basepath="/home/matthew/Projects/batman/"
 basepath= os.path.join(sys.path[0], sys.argv[0])
@@ -41,7 +41,7 @@ class systray:
 		type           = gtk.MESSAGE_INFO,
 		buttons        = gtk.BUTTONS_OK,
 		message_format = "Battery Status "+stat +"\n" +"Current Charge " +str(perc1) +"%" +"\n"+"Battery level is low please plug in your mains adaptor")
-		dialog.set_title('Batman')
+		dialog.set_title('Batterymon')
 		dialog.connect('response', self.show_hide)
 		dialog.show()
 		
@@ -82,7 +82,7 @@ class systray:
 		type           = gtk.MESSAGE_INFO,
 		buttons        = gtk.BUTTONS_OK,
 		message_format = "Battery Status "+stat +"\n" +"Current Charge " +str(perc1) +"%")
-		dialog.set_title('Batman')
+		dialog.set_title('Batterymon')
 		dialog.connect('response', self.show_hide)
 		dialog.show()
 	
@@ -107,7 +107,7 @@ class systray:
 		type           = gtk.MESSAGE_INFO,
 		buttons        = gtk.BUTTONS_OK_CANCEL,
 		message_format = "Do you want to close me?")
-		dialog.set_title('Batman')
+		dialog.set_title('Batterymon')
 		dialog.connect('response', self.destroyer)
 		dialog.show()
 	
@@ -164,6 +164,7 @@ class systray:
 	
 	
 if __name__ == "__main__":
+	
 	tray=systray()
 
 
