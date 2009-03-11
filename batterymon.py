@@ -21,13 +21,16 @@
 
 import gtk
 import gobject
+import sys, os
 
-#basepath="/sys/class/power_supply/"
-basepath="/home/matthew/Projects/batman/"
+
+#basepath="/home/matthew/Projects/batman/"
+basepath= os.path.join(sys.path[0], sys.argv[0])
 batpath="/sys/class/power_supply/"
 interval=30000
 #batpath="/home/matthew/Projects/systray/"
 class systray:
+
 	def alert( self, widget, data=None):
 		stat 		   = self.status()
 		perc 		   = self.percent()
@@ -51,11 +54,13 @@ class systray:
 		self.test.set_visible(True)
 		gobject.timeout_add(interval,self.update)
 		gtk.main()
+
 	def status(self):
 		FILE=open(batpath+"BAT0/status","r")
 		CMD=FILE.read()
 		FILE.close
 		return CMD
+
 	def percent(self):
 		FILE=open(batpath+"BAT0/charge_full","r")
 		MAX=FILE.read()
@@ -66,6 +71,7 @@ class systray:
 		
 		per=(float(NOW) / float(MAX) * 100)
 		return (per)
+
 	def activate( self, widget, data=None):
 		stat 		   = self.status()
 		perc 		   = self.percent()
