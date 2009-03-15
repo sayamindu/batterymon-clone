@@ -166,7 +166,7 @@ class systray:
 
     def check_theme(self):
             
-        x = os.path.exists("%s/icons/%s/" % (basepath,theme)) # check if the battery exists
+        x = os.path.exists("%s/icons/%s/" % (iconpath,theme)) # check if the battery exists
         if x:
             ## Theme directory found
             return ()
