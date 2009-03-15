@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#       batman.py
+#       batterymon.py
 #       
 #       Copyright 2008 Matthew Horsell <matthew.horsell@googlemail.com>
 #       
@@ -21,18 +21,23 @@
 
 import gtk
 import gobject
-import sys, os
-VERSION="0.5.0"
+import sys, os, string
+from optparse import OptionParser
+#import subprocess 
+VERSION="0.5.1"
 
 #basepath="/home/matthew/Projects/batman/"
 
 basepath = os.path.abspath(os.path.dirname(__file__))
-
+theme=""
 batpath="/sys/class/power_supply/"
-interval=30000
+interval=0
+BATnumber=""
 #batpath="/home/matthew/Projects/systray/"
-class systray:
 
+
+class systray:
+    
     def alert( self, widget, data=None):
         stat            = self.status()
         perc            = self.percent()
@@ -50,10 +55,11 @@ class systray:
         dialog.show()
     
     def set_icon(self, name):
-        print "%s/icons/battery_%s.png" % (basepath, name)
-        self.test.set_from_file("%s/icons/battery_%s.png" % (basepath, name))
+        #print "%s/icons/%s/battery_%s.png" % (basepath,theme, name)
+        self.test.set_from_file("%s/icons/%s/battery_%s.png" % (basepath,theme, name))
     
     def __init__(self):
+        self.set_theme()
         self.test= gtk.StatusIcon()
         self.set_icon("full")
         self.test.set_blinking(False)
@@ -64,14 +70,16 @@ class systray:
         gtk.main()
 
     def status(self):
-        FILE=open(batpath+"BAT0/status","r")
+        FILE=open(batpath+BATnumber + "/status","r")
+        print batpath+BATnumber+"/status"
         CMD=FILE.read()
         FILE.close
+        print CMD
         return CMD
 
     def percent(self):
         
-        FILE=open(batpath+"BAT0/charge_full","r")
+        FILE=open(batpath+BATnumber+"/charge_full","r")
         MAX=FILE.read()
         FILE.close
         FILE=open(batpath+"BAT0/charge_now","r")
@@ -156,8 +164,64 @@ class systray:
         else:
             pass
             # should this cause an error?
+
+    def set_theme(self):
+        
+        #print "SET THEME"
+        #print "need to test if the themes exists"
+        #print theme
+        return
+
+class commandline:
+    def passargs(self,arg):
+        print arg
+        parser = OptionParser(usage='usage: %prog [options] ', version=VERSION, description="Simple Battery Monitor")
+        parser.add_option("-i", '--interval',action="store",help="set interval to check battery in miliseconds", dest="interval", default="30000")
+        parser.add_option("-t",'--theme',action="store",help="set battery icon theme",dest="theme",default="default")
+        parser.add_option("-b",'--battery',action="store", help="which battery to monitor e.g BAT0",dest="battery")
+        #parser.add_option("-l",'--list',action="store_true",help="list avaliable batterys",dest="listbatts")
+        (options, args) = parser.parse_args()
+        if arg=="none":
+            parser.print_help()
+        return options
+
+    def checkbatterys(self):
+        command='ls ' + batpath +' | grep BAT'
+        test=""
+        #temp=["BAT0","BAT1"]
+        test = os.popen(command).readlines()     # search for batteries
+        if len(test) >1:
+            print "More than one battery was found please pass -b BAT[number]"
+            sys.exit(0)
+        else:                               
+            print "One battery found"   
+            return str(test[0])
     
     
+    def check_battery_exists(self):
+        print "checking battery"
+        
+        return ()
+
 if __name__ == "__main__":
+    
+    options=commandline() 
+    cmdline = options.passargs("") ## pass command line options
+    
+    
+    if cmdline.theme == "default":  ## set theme
+        theme="default"
+    else:
+        theme=cmdline.theme
+    
+    interval=int(cmdline.interval) ## set interval
+    
+    
+    tempBATnumber = options.checkbatterys()  ## set default battery number
+    BATnumber=tempBATnumber.strip('\n')
+    
+    
+    
+    
     
     tray=systray()
