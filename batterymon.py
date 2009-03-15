@@ -178,7 +178,7 @@ class commandline:
         parser = OptionParser(usage='usage: %prog [options] ', version=VERSION, description="Simple Battery Monitor")
         parser.add_option("-i", '--interval',action="store",help="set interval to check battery in miliseconds", dest="interval", default="30000")
         parser.add_option("-t",'--theme',action="store",help="set battery icon theme",dest="theme",default="default")
-        parser.add_option("-b",'--battery',action="store", help="which battery to monitor e.g BAT0",dest="battery")
+        parser.add_option("-b",'--battery',action="store", help="which battery to monitor e.g BAT0",dest="battery",default="default")
         #parser.add_option("-l",'--list',action="store_true",help="list avaliable batterys",dest="listbatts")
         (options, args) = parser.parse_args()
         if arg=="none":
@@ -188,20 +188,27 @@ class commandline:
     def checkbatterys(self):
         command='ls ' + batpath +' | grep BAT'
         test=""
-        #temp=["BAT0","BAT1"]
-        test = os.popen(command).readlines()     # search for batteries
+        test=["BAT0","BAT1"]
+        #test = os.popen(command).readlines()     # search for batteries
+        
         if len(test) >1:
             print "More than one battery was found please pass -b BAT[number]"
-            sys.exit(0)
+            print "using battery "+str(test[0]) +" as default"
+            return str(test[0])
         else:                               
             print "One battery found"   
             return str(test[0])
     
-    
     def check_battery_exists(self):
-        print "checking battery"
+        bat = str.upper(cmdline.battery) # make sure the bat is upper
+        x = os.path.exists(batpath+bat ) # check if the battery exists
         
-        return ()
+        if x:
+            BATnumber==bat
+        else:
+            print "Battery doesn't exist please double check your Battery number \n e.g ./batterymon.py -b BAT1"
+            sys.exit(0)
+    
 
 if __name__ == "__main__":
     
@@ -212,16 +219,15 @@ if __name__ == "__main__":
     if cmdline.theme == "default":  ## set theme
         theme="default"
     else:
-        theme=cmdline.theme
+        theme=cmdline.theme        ### currently no error checking for theme
     
     interval=int(cmdline.interval) ## set interval
     
-    
-    tempBATnumber = options.checkbatterys()  ## set default battery number
-    BATnumber=tempBATnumber.strip('\n')
-    
-    
-    
+    if cmdline.battery == "default":
+        tempBATnumber = options.checkbatterys()  ## set default battery number
+        BATnumber=tempBATnumber.strip('\n')
+    else:
+        Batnumber = options.check_battery_exists()
     
     
     tray=systray()
