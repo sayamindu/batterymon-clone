@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.1"
+VERSION="0.5.2"
 
 #basepath="/home/matthew/Projects/batman/"
 
@@ -55,11 +55,10 @@ class systray:
         dialog.show()
     
     def set_icon(self, name):
-        #print "%s/icons/%s/battery_%s.png" % (basepath,theme, name)
         self.test.set_from_file("%s/icons/%s/battery_%s.png" % (basepath,theme, name))
     
     def __init__(self):
-        self.set_theme()
+        self.check_theme()
         self.test= gtk.StatusIcon()
         self.set_icon("full")
         self.test.set_blinking(False)
@@ -165,11 +164,15 @@ class systray:
             pass
             # should this cause an error?
 
-    def set_theme(self):
-        
-        #print "SET THEME"
-        #print "need to test if the themes exists"
-        #print theme
+    def check_theme(self):
+            
+        x = os.path.exists("%s/icons/%s/" % (basepath,theme)) # check if the battery exists
+        if x:
+            ## Theme directory found
+            return ()
+        else:
+            print "Theme not found please check the name and try again!"
+            sys.exit (0)
         return
 
 class commandline:
@@ -187,9 +190,9 @@ class commandline:
 
     def checkbatterys(self):
         command='ls ' + batpath +' | grep BAT'
-        test=""
-        test=["BAT0","BAT1"]
-        #test = os.popen(command).readlines()     # search for batteries
+        
+        
+        test = os.popen(command).readlines()     # search for batteries
         
         if len(test) >1:
             print "More than one battery was found please pass -b BAT[number]"
@@ -219,7 +222,7 @@ if __name__ == "__main__":
     if cmdline.theme == "default":  ## set theme
         theme="default"
     else:
-        theme=cmdline.theme        ### currently no error checking for theme
+        theme=cmdline.theme        ### currently no error checking for themes
     
     interval=int(cmdline.interval) ## set interval
     
@@ -227,7 +230,7 @@ if __name__ == "__main__":
         tempBATnumber = options.checkbatterys()  ## set default battery number
         BATnumber=tempBATnumber.strip('\n')
     else:
-        Batnumber = options.check_battery_exists()
+        Batnumber = options.check_battery_exists() ## set battery number set on command line 
     
     
     tray=systray()
