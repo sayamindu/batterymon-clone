@@ -34,7 +34,7 @@ batpath="/sys/class/power_supply/"
 interval=0
 BATnumber=""
 #batpath="/home/matthew/Projects/systray/"
-
+iconpath = "/usr/share/batterymon"
 
 class systray:
     
@@ -55,7 +55,7 @@ class systray:
         dialog.show()
     
     def set_icon(self, name):
-        self.test.set_from_file("%s/icons/%s/battery_%s.png" % (basepath,theme, name))
+        self.test.set_from_file("%s/icons/%s/battery_%s.png" % (iconpath,theme, name))
     
     def __init__(self):
         self.check_theme()
