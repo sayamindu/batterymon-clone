@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.5"
+VERSION="0.5.6"
 
 #basepath="/home/matthew/Projects/batman/"
 
@@ -66,6 +66,7 @@ class systray:
         self.test.connect("popup_menu", self.popup)
         self.test.set_visible(True)
         gobject.timeout_add(interval, self.update)
+        self.update()
         gtk.main()
 
     def status(self):
