@@ -136,6 +136,8 @@ class systray:
         
         if cmd == "Full":
             self.set_icon("full")
+            #self.set_icon("power")
+        if cmd == "Charging":
             self.set_icon("power")
         elif cmd == "Discharging":
             if per > 87:
@@ -164,7 +166,7 @@ class systray:
         else:
             pass
             # should this cause an error?
-
+        gobject.timeout_add(interval, self.update)
     def check_theme(self):
         
         x = os.path.exists("/%s/icons/%s/" % (iconpath,theme)) # check if the battery exists
@@ -178,7 +180,7 @@ class systray:
 
 class commandline:
     def passargs(self,arg):
-        print arg
+        
         parser = OptionParser(usage='usage: %prog [options] ', version=VERSION, description="Simple Battery Monitor")
         parser.add_option("-i", '--interval',action="store",help="set interval to check battery in miliseconds", dest="interval", default="30000")
         parser.add_option("-t",'--theme',action="store",help="set battery icon theme",dest="theme",default="default")
