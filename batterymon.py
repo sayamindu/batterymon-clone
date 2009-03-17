@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.4"
+VERSION="0.5.5"
 
 #basepath="/home/matthew/Projects/batman/"
 
@@ -34,7 +34,7 @@ batpath="/sys/class/power_supply/"
 interval=0
 BATnumber=""
 #batpath="/home/matthew/Projects/systray/"
-iconpath = "/usr/share/batterymon"
+iconpath = "/usr/share/batterymon"    
 
 class systray:
     
@@ -165,8 +165,8 @@ class systray:
             # should this cause an error?
 
     def check_theme(self):
-            
-        x = os.path.exists("%s/icons/%s/" % (iconpath,theme)) # check if the battery exists
+        
+        x = os.path.exists("/%s/icons/%s/" % (iconpath,theme)) # check if the battery exists
         if x:
             ## Theme directory found
             return ()
