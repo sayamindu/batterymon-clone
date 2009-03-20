@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.6"
+VERSION="0.5.7"
 
 #basepath="/home/matthew/Projects/batman/"
 
@@ -132,6 +132,10 @@ class systray:
     def update(self):
         cmd = self.status().strip()
         per = int(round(self.percent()))
+        if per > 100: ## make sure the battery can't read more than 100% or less than 0%
+            per=100
+        if per <0: 
+            per=0
         self.test.set_tooltip("Battery status: %s | Current charge: %d%%" % (cmd, per))
         
         if cmd == "Full":
