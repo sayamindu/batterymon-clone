@@ -79,7 +79,7 @@ class systray:
 
     def percent(self):
         
-        FILE=open(batpath+BATnumber+"/charge_full","r")
+        FILE=open(batpath+BATnumber+"/charge_full_design","r")
         MAX=FILE.read()
         FILE.close
         FILE=open(batpath+BATnumber+"/charge_now","r")
