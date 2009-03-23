@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.7"
+VERSION="0.5.8"
 
 #basepath="/home/matthew/Projects/batman/"
 
