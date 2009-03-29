@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.8"
+VERSION="0.5.9"
 
 #basepath="/home/matthew/Projects/batman/"
 
@@ -70,19 +70,26 @@ class systray:
         gtk.main()
 
     def status(self):
-        FILE=open(batpath+BATnumber + "/status","r")
-        print batpath+BATnumber+"/status"
+        FILE=open(batpath+BATnumber + "/status","r")             
         CMD=FILE.read()
-        FILE.close
-        print CMD
+        FILE.close        
         return CMD
 
     def percent(self):
         
-        FILE=open(batpath+BATnumber+"/charge_full_design","r")
+        try:
+            FILE=open(batpath+BATnumber+"/charge_full_design","r")
+        except IOError:
+            FILE=open(batpath+BATnumber+"/energy_full_design","r")
+                
         MAX=FILE.read()
         FILE.close
-        FILE=open(batpath+BATnumber+"/charge_now","r")
+        
+        try:
+            FILE=open(batpath+BATnumber+"/charge_now","r")
+        except IOError:
+            FILE=open(batpath+BATnumber+"/engergy_now","r")
+        
         NOW=FILE.read()
         FILE.close
         
@@ -210,11 +217,11 @@ class commandline:
             return str(test[0])
     
     def check_battery_exists(self):
-        bat = str.upper(cmdline.battery) # make sure the bat is upper
+        bat = str.upper(cmdline.battery) # make sure the bat is upper        
         x = os.path.exists(batpath+bat ) # check if the battery exists
         
-        if x:
-            BATnumber==bat
+        if x:            
+            BATnumber = bat                        
         else:
             print "Battery doesn't exist please double check your Battery number \n e.g ./batterymon.py -b BAT1"
             sys.exit(0)
@@ -236,8 +243,12 @@ if __name__ == "__main__":
     if cmdline.battery == "default":
         tempBATnumber = options.checkbatterys()  ## set default battery number
         BATnumber=tempBATnumber.strip('\n')
-    else:
-        Batnumber = options.check_battery_exists() ## set battery number set on command line 
-    
+        
+    else:                
+        tempBATnumber = options.checkbatterys()
+        checkBat = options.check_battery_exists()
+        BATnumber = tempBATnumber.strip('\n')
+        
+        
     
     tray=systray()
