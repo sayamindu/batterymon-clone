@@ -24,7 +24,7 @@ import gobject
 import sys, os, string
 from optparse import OptionParser
 #import subprocess 
-VERSION="0.5.9"
+VERSION="0.6.0"
 
 #basepath="/home/matthew/Projects/batman/"
 
@@ -88,7 +88,7 @@ class systray:
         try:
             FILE=open(batpath+BATnumber+"/charge_now","r")
         except IOError:
-            FILE=open(batpath+BATnumber+"/engergy_now","r")
+            FILE=open(batpath+BATnumber+"/energy_now","r")
         
         NOW=FILE.read()
         FILE.close
