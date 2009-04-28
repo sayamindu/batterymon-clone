@@ -20,8 +20,8 @@ class config:
 	self.configure.read (self.filename)
 	return ("done")
     
-    def read_settings_int(self):
-	x = self.configure.get ("default",key)
+    def read_settings_int(self,key):
+	x = self.configure.get ("tray",key)
         return int(x)    
 	
 	def write_settings_string(self,key,value):

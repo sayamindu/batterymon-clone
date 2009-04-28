@@ -242,11 +242,32 @@ class Systray(PowerEventListener):
         self.theme = theme
 
         self.tray_object= gtk.StatusIcon()
+        self.tray_object.set_visible(False)
         #self.set_icon("full")
         self.tray_object.set_blinking(False)
         self.tray_object.connect("popup_menu", self.rightclick_menu)
-        self.tray_object.set_visible(True)
-
+        self.show_trayicon(self.read_settings)
+        
+    
+    def show_trayicon(self,value):
+       setting = self.read_settings()
+       print setting
+       
+       if setting == 3 : ## only show if charing or discharging
+            self.tray_object.set_visible(False)
+            
+       if setting == 1: ### always show an icon
+                self.tray_object.set_visible(True)
+                return
+       if setting == 2: ## only show when discharging
+                self.tray_object.set_visible(False)    
+    
+    def read_settings(self):
+       settings=config()
+       result = settings.read_settings_int("show_icon")
+       
+       return result
+       
     def battery_property_modified(self, battery):
 
         if battery.is_charging:       
