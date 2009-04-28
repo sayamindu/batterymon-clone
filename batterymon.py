@@ -246,21 +246,26 @@ class Systray(PowerEventListener):
         #self.set_icon("full")
         self.tray_object.set_blinking(False)
         self.tray_object.connect("popup_menu", self.rightclick_menu)
-        self.show_trayicon(self.read_settings)
+        
+        self.show_trayicon(self.read_settings())
         
     
     def show_trayicon(self,value):
-       setting = self.read_settings()
-       print setting
+       setting = value
+       ### only changing on startup
        
        if setting == 3 : ## only show if charing or discharging
             self.tray_object.set_visible(False)
+            return
             
        if setting == 1: ### always show an icon
                 self.tray_object.set_visible(True)
                 return
+       
        if setting == 2: ## only show when discharging
-                self.tray_object.set_visible(False)    
+            self.tray_object.set_visible(True)    
+              
+            return
     
     def read_settings(self):
        settings=config()
@@ -269,12 +274,13 @@ class Systray(PowerEventListener):
        return result
        
     def battery_property_modified(self, battery):
-
+        
         if battery.is_charging:       
             self.tray_object.set_tooltip("Charging, Battery Level: %s%%" % battery.charge_level)
             logger.debug("Charging, Battery Percentage %s" % battery.charge_level)
 
         elif battery.is_discharging:
+            
             self.tray_object.set_tooltip("Battery Level: %s%% \nTime remainging: %s" % (battery.charge_level, battery.remaining_time))
             logger.debug("Battery Percentage %s \nTime remainging: %s" % (battery.charge_level, battery.remaining_time))
 
@@ -283,6 +289,7 @@ class Systray(PowerEventListener):
             logger.debug("On AC")
         
         if battery.is_charging == 0 and battery.is_discharging == 0 :
+            
             self.set_icon("charging_full")
             return
         
