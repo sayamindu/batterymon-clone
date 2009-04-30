@@ -247,7 +247,7 @@ class Systray(PowerEventListener):
         self.tray_object.set_blinking(False)
         self.tray_object.connect("popup_menu", self.rightclick_menu)
         
-        self.show_trayicon(self.read_settings())
+        self.show_trayicon(1) ## fixed to one for now
         
     
     def show_trayicon(self,value):
@@ -356,7 +356,7 @@ class Systray(PowerEventListener):
         menu.show()
         about_menu.show()
         exit_menu.show()
-        pref_menu.show()
+        #pref_menu.show()
         menu.popup(None, None, None, 2, 0)
     
         
