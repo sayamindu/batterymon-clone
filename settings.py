@@ -6,7 +6,7 @@ class config:
     def __init__(self):
 	self.configure = ConfigParser.ConfigParser()
 	self.filename= self.settings_exist ()
-	self.configure.read(self.filename)
+	#self.configure.read(self.filename)  ##should make sure no file is read
 	
     def settings_exist(self):
 	 if os.path.exists('~/.config/batterymon/batterymon.rc'):
