@@ -25,7 +25,7 @@ except:
 
 
 #{{{ Program defaults
-VERSION="0.6.0b"
+VERSION="1.1.0"
 theme="default"
 logger = logger_init()
 #}}}
