@@ -191,7 +191,7 @@ class Theme:
             return './'
         else:
             logger.debug('Using /usr/share')
-            return  '/usr/share/batterymonitor/'
+            return  '/usr/share/batterymon'
 
     def get_icon(self, name):
         return "%s/icons/%s/battery_%s.png" % (self.iconpath, self.theme, name)
