@@ -341,7 +341,7 @@ class Systray(PowerEventListener):
         
         
             
-    def rightclick_menu(self, button, widget, data=None):
+    def rightclick_menu(self, button, widget, event):
         menu = gtk.Menu()
         about_menu = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
         about_menu.connect('activate', self.about)
@@ -357,7 +357,7 @@ class Systray(PowerEventListener):
         about_menu.show()
         exit_menu.show()
         #pref_menu.show()
-        menu.popup(None, None, None, 2, 0)
+        menu.popup(None, None, None, 2, event)
     
         
     def preferences(self,button):
