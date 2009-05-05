@@ -276,16 +276,16 @@ class Systray(PowerEventListener):
     def battery_property_modified(self, battery):
         
         if battery.is_charging:       
-            self.tray_object.set_tooltip("Charging, Battery Level: %s%%" % battery.charge_level)
+            self.tray_object.set_tooltip("On AC \n Charging, Battery Level: %s%%" % battery.charge_level)
             logger.debug("Charging, Battery Percentage %s" % battery.charge_level)
 
         elif battery.is_discharging:
             
-            self.tray_object.set_tooltip("Battery Level: %s%% \nTime remainging: %s" % (battery.charge_level, battery.remaining_time))
+            self.tray_object.set_tooltip("Battery Level: %s%% \nTime remaining %s" % (battery.charge_level, battery.remaining_time))
             logger.debug("Battery Percentage %s \nTime remainging: %s" % (battery.charge_level, battery.remaining_time))
 
         else:
-            self.tray_object.set_tooltip("On AC\nBattery Level: %s%%" % battery.charge_level)
+            self.tray_object.set_tooltip("On AC \nBattery Level: %s%%" % battery.charge_level)
             logger.debug("On AC")
         
         if battery.is_charging == 0 and battery.is_discharging == 0 :
@@ -351,12 +351,9 @@ class Systray(PowerEventListener):
 )
         pref_menu.connect('activate',self.preferences)
         menu.append(about_menu)
-        menu.append(pref_menu)
+        #menu.append(pref_menu)
         menu.append(exit_menu)
-        menu.show()
-        about_menu.show()
-        exit_menu.show()
-        #pref_menu.show()
+        menu.show_all()           
         menu.popup(None, None, None, 2, event)
     
         
