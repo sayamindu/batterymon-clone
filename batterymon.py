@@ -19,13 +19,13 @@ try:
     if not pynotify.init("Battery Monitor"):
         print("There was an error initializing the notification system. Notifications won't work.")
 except:
-    print("You do not seem to have libnotify installed. Notifications won't work.")
+    print("You do not seem to have python-notify installed. Notifications won't work.")
     pynotify = None
 #}}}
 
 
 #{{{ Program defaults
-VERSION="1.1.0"
+VERSION="1.1.2"
 theme="default"
 logger = logger_init()
 #}}}
@@ -359,7 +359,7 @@ class Systray(PowerEventListener):
         
     def preferences(self,button):
         show_prefs = prefs()
-        show_prefs=None ## destroy this so the right click menu works again
+        
     
     def close(self,button):
         sys.exit(0)
@@ -479,9 +479,10 @@ class CommandRunner(PowerEventListener):
         self.command = command
 
     def battery_property_modified(self, battery):
-        if self.power_level <= battery.charge_level and self.command:
+                
+        if str(battery.charge_level) <= str(self.power_level) and self.command:
             logger.debug("Running command '%s'" % self.command)
-            os.system(self.command)
+            #os.system(self.command)
 #}}}
 
 #{{{ List all Themes
