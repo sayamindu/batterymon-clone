@@ -488,7 +488,11 @@ class CommandRunner(PowerEventListener):
 #{{{ List all Themes
 class list_themes:
     def list_all_themes(self):
-        pass
+        temp = os.listdir("/usr/share/batterymon/icons")
+	print str(temp)
+	return
+
+	
         
 #}}}
  
@@ -499,7 +503,6 @@ if __name__ == "__main__":
     
     ## not sure on this yet? might be handy if the theme base grows
     if cmdline.list_themes:
-            print "DEBUG LIST"
             test = list_themes()
             test.list_all_themes()
             
