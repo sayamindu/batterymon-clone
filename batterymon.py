@@ -276,8 +276,8 @@ class Systray(PowerEventListener):
     def battery_property_modified(self, battery):
         
         if battery.is_charging:       
-            self.tray_object.set_tooltip("On AC \n Charging, Battery Level: %s%%" % battery.charge_level)
-            logger.debug("Charging, Battery Percentage %s" % battery.charge_level)
+            self.tray_object.set_tooltip("On AC (Charging) \nBattery Level: %s%%" % battery.charge_level)
+            logger.debug("Charging\n Battery Percentage %s" % battery.charge_level)
 
         elif battery.is_discharging:
             
@@ -488,6 +488,7 @@ class CommandRunner(PowerEventListener):
 #{{{ List all Themes
 class list_themes:
     def list_all_themes(self):
+	print "Themes:"
         temp = os.listdir("/usr/share/batterymon/icons")
 	print str(temp)
 	return
