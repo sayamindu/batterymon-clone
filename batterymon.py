@@ -240,7 +240,6 @@ class BatteryInfo:
 class Systray(PowerEventListener):
     def __init__(self, theme):
         self.theme = theme
-
         self.tray_object= gtk.StatusIcon()
         self.tray_object.set_visible(False)
         #self.set_icon("full")
@@ -375,7 +374,8 @@ class Systray(PowerEventListener):
         about_dg.show()
        
     def set_icon(self,name):
-        self.tray_object.set_from_file(self.theme.get_icon(name))
+        self.tray_object.set_from_file(self.theme.get_icon(name))                        
+        self.Icon_name = name
         logger.debug("Icon updated")
         logger.debug("Icon Name: %s" % name)
    
@@ -385,8 +385,11 @@ class Systray(PowerEventListener):
 class NotificationHelper:
     def notify(self, title, message, icon):
         if pynotify:
-            n = pynotify.Notification(title, message)                                                             
-            iconf = theme.get_icon(icon)
+            n = pynotify.Notification(title, message)                                                            
+            #iconf = theme.get_icon(icon)
+            pm.update ## force and update
+            print "TEST " + systray.Icon_name
+            iconf = theme.get_icon(systray.Icon_name)  ## Set Notification icon based on current icon name  (needs to be tested)
             logger.debug("DEBUG Notification icon " +iconf)
             icon = gtk.gdk.pixbuf_new_from_file_at_size(iconf, 46, 46)                
             n.set_icon_from_pixbuf(icon)                                            
@@ -399,7 +402,7 @@ class commandline:
     def passargs(self,arg):
        
         parser = OptionParser(usage='usage: %prog [options] ', version=VERSION, description="Simple Battery Monitor")  
-        parser.add_option("-t",'--theme',action="store",help="set battery icon theme",dest="theme",default="default")                
+        parser.add_option("-t","--theme",action="store",help="set icon theme",dest="theme",default="default")                
         parser.add_option("-n", "--notify-at", action="store", help="notify me when battery level is lower than the provided value", dest="notification_level", default="10")
         parser.add_option("-c", "--critical", action="store", help="set critical level", dest="critical_level", default="5")
         parser.add_option("-e", "--on-critical", action="store", help="run this command on critical power level", dest="critical_command", default=None)
