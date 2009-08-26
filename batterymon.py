@@ -9,9 +9,9 @@ from optparse import OptionParser
 import os,sys
 
 ## code modules
-from preferences import prefs
+#from preferences import prefs
 from logger import logger_init
-from settings import config
+#from settings import config
 
 #{{{ Desktop notifications init
 try:
@@ -374,7 +374,7 @@ class Systray(PowerEventListener):
         about_dg.show()
        
     def set_icon(self,name):
-        self.tray_object.set_from_file(self.theme.get_icon(name))                        
+        self.tray_object.set_from_file(self.theme.get_icon(name))                     
         self.Icon_name = name
         logger.debug("Icon updated")
         logger.debug("Icon Name: %s" % name)
@@ -386,10 +386,8 @@ class NotificationHelper:
     def notify(self, title, message, icon):
         if pynotify:
             n = pynotify.Notification(title, message)                                                            
-            #iconf = theme.get_icon(icon)
-            pm.update ## force and update
-            print "TEST " + systray.Icon_name
-            iconf = theme.get_icon(systray.Icon_name)  ## Set Notification icon based on current icon name  (needs to be tested)
+            iconf = theme.get_icon(icon)            
+            print "TEST " + systray.Icon_name            
             logger.debug("DEBUG Notification icon " +iconf)
             icon = gtk.gdk.pixbuf_new_from_file_at_size(iconf, 46, 46)                
             n.set_icon_from_pixbuf(icon)                                            
@@ -473,6 +471,7 @@ class Notificator(PowerEventListener):
 
         if battery.is_charging and battery.charge_level > self.low_level:
             self.notify = False
+
 #}}}
 
 #{{{ CommandRunner
@@ -503,9 +502,11 @@ class list_themes:
 if __name__ == "__main__":
     
     options = commandline()
+    
     cmdline = options.passargs("") ## pass command line options
     
     ## not sure on this yet? might be handy if the theme base grows
+    
     if cmdline.list_themes:
             test = list_themes()
             test.list_all_themes()
@@ -515,9 +516,9 @@ if __name__ == "__main__":
         logger.set_level("debug")    
         
     theme = Theme(cmdline.theme)
-
+    
     systray = Systray(theme)
-    notificator = Notificator(int(cmdline.notification_level), int(cmdline.critical_level))
+    notificator = Notificator(int(cmdline.notification_level), int(cmdline.critical_level))    
     executor = CommandRunner(int(cmdline.critical_level), cmdline.critical_command)
     
     pm = PowerManager()
