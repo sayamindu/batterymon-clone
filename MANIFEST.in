@@ -1,0 +1,6 @@
+include batterymon
+include batterymon.rc
+include setup.py
+recursive-include *.py
+recursive-include po *.po *.pot *.in
+recursive-include icons *png
