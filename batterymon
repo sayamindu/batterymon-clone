@@ -462,11 +462,11 @@ class Notificator(PowerEventListener):
 
     def battery_property_modified(self, battery):
         if battery.charge_level <= self.low_level and not self.notified:
-            self.n.notify(_("Low Battery"), _("You have approximatelly <b>%s</b> remaining") % battery.remaining_time,"empty")
+            self.n.notify(_("Low Battery"), _("You have approximately <b>%s</b> remaining") % battery.remaining_time,"empty")
             self.notified = True
 
         if battery.charge_level <= self.critical_level and not self.critically_notified:
-            self.n.notify(_("Critical Battery"), _("You have approximatelly <b>%s</b> remaining") % battery.remaining_time,"empty")
+            self.n.notify(_("Critical Battery"), _("You have approximately <b>%s</b> remaining") % battery.remaining_time,"empty")
             self.critically_notified = True
 
 
