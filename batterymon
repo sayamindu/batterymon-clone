@@ -8,6 +8,10 @@ import gtk
 from optparse import OptionParser
 import os,sys
 
+import gettext
+
+_ = lambda msg: gettext.dgettext('batterymon', msg)
+
 ## code modules
 #from preferences import prefs
 from batterymon.logger import logger_init
@@ -17,9 +21,9 @@ from batterymon.logger import logger_init
 try:
     import pynotify
     if not pynotify.init("Battery Monitor"):
-        print("There was an error initializing the notification system. Notifications won't work.")
+        print(_("There was an error initializing the notification system. Notifications won't work."))
 except:
-    print("You do not seem to have python-notify installed. Notifications won't work.")
+    print(_("You do not seem to have python-notify installed. Notifications won't work."))
     pynotify = None
 #}}}
 
@@ -155,7 +159,7 @@ class Battery:
         logger.debug("Minutes: %s" % str(minutes))
         logger.debug("Hours: %s" % str(hours))
 
-
+        #FIXME: The string below needs to be i18n-ized properly
         return self.__format_time(hours, "Hour", "Hours") + " " + self.__format_time(minutes, "Minute", "Minutes")
 
     def __format_time(self, time, singular, plural):
@@ -275,16 +279,16 @@ class Systray(PowerEventListener):
     def battery_property_modified(self, battery):
         
         if battery.is_charging:       
-            self.tray_object.set_tooltip("On AC (Charging) \nBattery Level: %s%%" % battery.charge_level)
+            self.tray_object.set_tooltip(_("On AC (Charging) \nBattery Level: %s%%") % battery.charge_level)
             logger.debug("Charging\n Battery Percentage %s" % battery.charge_level)
 
         elif battery.is_discharging:
             
-            self.tray_object.set_tooltip("Battery Level: %s%% \nTime remaining %s" % (battery.charge_level, battery.remaining_time))
+            self.tray_object.set_tooltip(_("Battery Level: %s%% \nTime remaining %s") % (battery.charge_level, battery.remaining_time))
             logger.debug("Battery Percentage %s \nTime remainging: %s" % (battery.charge_level, battery.remaining_time))
 
         else:
-            self.tray_object.set_tooltip("On AC \nBattery Level: %s%%" % battery.charge_level)
+            self.tray_object.set_tooltip(_("On AC \nBattery Level: %s%%") % battery.charge_level)
             logger.debug("On AC")
         
         if battery.is_charging == 0 and battery.is_discharging == 0 :
@@ -367,7 +371,7 @@ class Systray(PowerEventListener):
         
     def about(self, button):
         about_dg = gtk.AboutDialog()
-        about_dg.set_name("Battery Monitor")
+        about_dg.set_name(_("Battery Monitor"))
         about_dg.set_version(VERSION)
         about_dg.set_authors(["Matthew Horsell", "Tomas Kramar"])
         about_dg.connect("response", lambda d, r: d.destroy())
@@ -452,17 +456,17 @@ class Notificator(PowerEventListener):
     
     def ac_property_modified(self, present):
         if present:            
-            self.n.notify("On AC", "You are currently running on AC","charging_empty")
+            self.n.notify(_("On AC"), _("You are currently running on AC"),"charging_empty")
         else:            
-            self.n.notify("On Battery", "AC adapter unplugged, running on battery","full")
+            self.n.notify(_("On Battery"), _("AC adapter unplugged, running on battery"),"full")
 
     def battery_property_modified(self, battery):
         if battery.charge_level <= self.low_level and not self.notified:
-            self.n.notify("Low Battery", "You have approximatelly <b>%s</b> remaining" % battery.remaining_time,"empty")
+            self.n.notify(_("Low Battery"), _("You have approximatelly <b>%s</b> remaining") % battery.remaining_time,"empty")
             self.notified = True
 
         if battery.charge_level <= self.critical_level and not self.critically_notified:
-            self.n.notify("Critical Battery", "You have approximatelly <b>%s</b> remaining" % battery.remaining_time,"empty")
+            self.n.notify(_("Critical Battery"), _("You have approximatelly <b>%s</b> remaining") % battery.remaining_time,"empty")
             self.critically_notified = True
 
 
