@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-21 23:59+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../batterymon:24
+msgid ""
+"There was an error initializing the notification system. Notifications won't "
+"work."
+msgstr ""
+
+#: ../batterymon:26
+msgid ""
+"You do not seem to have python-notify installed. Notifications won't work."
+msgstr ""
+
+#: ../batterymon:282
+#, c-format
+msgid ""
+"On AC (Charging) \n"
+"Battery Level: %s%%"
+msgstr ""
+
+#: ../batterymon:287
+#, c-format
+msgid ""
+"Battery Level: %s%% \n"
+"Time remaining %s"
+msgstr ""
+
+#: ../batterymon:291
+#, c-format
+msgid ""
+"On AC \n"
+"Battery Level: %s%%"
+msgstr ""
+
+#: ../batterymon:374
+msgid "Battery Monitor"
+msgstr ""
+
+#: ../batterymon:459
+msgid "On AC"
+msgstr ""
+
+#: ../batterymon:459
+msgid "You are currently running on AC"
+msgstr ""
+
+#: ../batterymon:461
+msgid "On Battery"
+msgstr ""
+
+#: ../batterymon:461
+msgid "AC adapter unplugged, running on battery"
+msgstr ""
+
+#: ../batterymon:465
+msgid "Low Battery"
+msgstr ""
+
+#: ../batterymon:465 ../batterymon:469
+#, c-format
+msgid "You have approximately <b>%s</b> remaining"
+msgstr ""
+
+#: ../batterymon:469
+msgid "Critical Battery"
+msgstr ""
