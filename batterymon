@@ -10,7 +10,7 @@ import os,sys
 
 ## code modules
 #from preferences import prefs
-from logger import logger_init
+from batterymon.logger import logger_init
 #from settings import config
 
 #{{{ Desktop notifications init
