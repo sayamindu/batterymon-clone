@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import gtk
 from logger import logger_init
 from settings import config
