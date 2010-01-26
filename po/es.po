@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-21 23:59+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../batterymon:24
+msgid ""
+"There was an error initializing the notification system. Notifications won't "
+"work."
+msgstr "Hubo un error inicializando el sistema de notificacion. Las notificaciones no"
+"funcionaran"
+
+#: ../batterymon:26
+msgid ""
+"You do not seem to have python-notify installed. Notifications won't work."
+msgstr "Parece que usted no tiene python-notify installado. Las notificaciones no"
+"funcionaran"
+#: ../batterymon:282
+#, c-format
+msgid ""
+"On AC (Charging) \n"
+"Battery Level: %s%%"
+msgstr "En AC (Cargando) \n"
+"Nivel de Bateria: %s%%"
+
+#: ../batterymon:287
+#, c-format
+msgid ""
+"Battery Level: %s%% \n"
+"Time remaining %s"
+msgstr "Nivel de Bateria: %s%% \n"
+"Tiempo restante %s"
+
+#: ../batterymon:291
+#, c-format
+msgid ""
+"On AC \n"
+"Battery Level: %s%%"
+msgstr ""
+"En AC \n"
+"Nivel de Bateria: %s%%"
+
+#: ../batterymon:374
+msgid "Battery Monitor"
+msgstr "Monitor de Bateria"
+
+#: ../batterymon:459
+msgid "On AC"
+msgstr "En AC"
+
+#: ../batterymon:459
+msgid "You are currently running on AC"
+msgstr "Esta actualmente utilizando AC"
+
+#: ../batterymon:461
+msgid "On Battery"
+msgstr "En Bateria"
+
+#: ../batterymon:461
+msgid "AC adapter unplugged, running on battery"
+msgstr "Adaptador AC desenchufado, utilizando la bateria"
+
+#: ../batterymon:465
+msgid "Low Battery"
+msgstr "Bateria Baja"
+
+#: ../batterymon:465 ../batterymon:469
+#, c-format
+msgid "You have approximately <b>%s</b> remaining"
+msgstr "Usted tiene approximadamente <b>%s</b> restante"
+
+#: ../batterymon:469
+msgid "Critical Battery"
+msgstr "Bateria Critica"
